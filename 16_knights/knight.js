@@ -42,19 +42,25 @@ class Knight {
     let temp = root;
 
     let queue = [temp];
+    console.log('first loop:');
+    let movesAlreadyTried = new Set();
     while (temp.location != this.endPosition) {
       let temp = queue.shift();
-
+      console.log(temp);
+      movesAlreadyTried.add(temp.location);
       this.setCurrentPosition(temp.location);
 
       let nextMoves = this.calcNextMoves();
 
       nextMoves.forEach((move) => {
-        let node = new Node(temp, null, move);
-        queue.push(node);
+        if (!movesAlreadyTried.has(move)) {
+          let node = new Node(temp, null, move);
+          queue.push(node);
+        }
       });
     }
 
+    console.log('Left first loop');
     let endNode = temp;
     let arr = [];
     while (temp.location != root.location) {
