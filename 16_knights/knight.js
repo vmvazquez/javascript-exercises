@@ -44,14 +44,14 @@ class Knight {
     let queue = [temp];
     console.log('first loop:');
     let movesAlreadyTried = new Set();
-    while (temp.location != this.endPosition) {
-      let temp = queue.shift();
-      console.log(temp);
-      movesAlreadyTried.add(temp.location);
+
+    while (!locationsEqual(temp.location, this.endPosition)) {
+      temp = queue.shift();
+
       this.setCurrentPosition(temp.location);
 
       let nextMoves = this.calcNextMoves();
-
+      movesAlreadyTried.add(temp.location);
       nextMoves.forEach((move) => {
         if (!movesAlreadyTried.has(move)) {
           let node = new Node(temp, null, move);
@@ -60,16 +60,17 @@ class Knight {
       });
     }
 
-    console.log('Left first loop');
-    let endNode = temp;
     let arr = [];
-    while (temp.location != root.location) {
-      arr.push(temp);
+    while (!locationsEqual(temp.location, root.location)) {
+      arr.push(temp.location);
       temp = temp.prev;
     }
 
+    arr.push(temp.location);
     return arr.reverse();
   }
 }
-
+const locationsEqual = (locationOne, locationTwo) => {
+  return locationOne[0] == locationTwo[0] && locationOne[1] == locationTwo[1];
+};
 module.exports = Knight;

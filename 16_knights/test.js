@@ -1,5 +1,7 @@
 const Knight = require('./knight');
 
-let knight = new Knight([3, 3], [0, 0]);
+let knight = new Knight([3, 3], [4, 3]);
 
-knight.findShortestPath();
+// console.log();
+
+console.log(knight.findShortestPath());
